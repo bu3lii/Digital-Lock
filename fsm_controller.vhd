@@ -90,6 +90,39 @@ begin
             
     -- TODO: add output logic
 
-    
+    process(curr_state) is
+    begin
+        o_shift <= '0';
+        o_clearinput <= '0';
+        o_load <= '0';
+        o_start_timer <= '0';
+        o_locked <= '1';
 
+        case curr_state is
+            when S0_LOCKED =>
+                o_clearinput <= '1';
+                o_locked <= '1';
+            when S1_READ_KEY =>
+                o_locked <= '1';
+            when S2_SHIFT_INPUT =>
+                o_shift <= '1';
+                o_locked <= '1';
+            when S3_VERIFY =>
+                o_locked <= '1';
+            when S4_UNLOCKED =>
+                o_clearinput <= '1';
+                o_locked <= '0';
+            when S5_HALT =>
+                o_clearinput <= '1';
+                o_start_timer <= '1';
+                o_locked <= '1';
+            when S6_WAIT_ACTION =>
+                o_locked <= '0';
+            when S7_SAVE_PASSWORD =>
+                o_load <= '1';
+                o_locked <= '0';
+            when others =>
+                null;
+        end case;
+    end process;
 end architecture;

@@ -6,7 +6,7 @@ entity lock_timer is
     port(
         i_clk: in std_logic;
         i_start_timer: in std_logic;
-        o_timer_done: out std_logic;
+        o_timer_done: out std_logic
     );
 end entity lock_timer;
 
